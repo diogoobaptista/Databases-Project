@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Fatura
+    public class Fatura
     {
         public string codigo_fat { get; set; }
         public decimal ano { get; set; }

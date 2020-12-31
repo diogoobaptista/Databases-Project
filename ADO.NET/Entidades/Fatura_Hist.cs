@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Fatura_Hist
+    public class Fatura_Hist
     {
         public string dt_atualizacao { get; set; }
         public string ultimo_estado { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Estado_FAT
+    public class Estado_FAT
     {
         public string estado_ft { get; set; }
         public List<Fatura> faturas { get; set; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Contribuinte
+    public class Contribuinte
     {
         public decimal nif { get; set; }
         public string nome { get; set; }

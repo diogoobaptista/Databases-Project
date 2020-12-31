@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Item_Hist
+    public class Item_Hist
     {
         public int num_item { get; set; }
         public string desc_item { get; set; }

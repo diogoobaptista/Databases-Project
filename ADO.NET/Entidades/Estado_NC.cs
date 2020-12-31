@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Estado_NC
+    public class Estado_NC
     {
         public string estado_nc { get; set; }
         public List<Nota_Cred> notasCredito { get; set; }

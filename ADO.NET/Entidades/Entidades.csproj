@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{197A3BFA-9E9F-45C8-A592-6A25C3900AAD}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>Entidades</RootNamespace>
     <AssemblyName>Entidades</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -31,6 +31,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -42,7 +45,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.cs" />
+    <Compile Include="Codigo_Fatura.cs" />
+    <Compile Include="Codigo_NotaCred.cs" />
+    <Compile Include="Contribuinte.cs" />
+    <Compile Include="Estado_FAT.cs" />
+    <Compile Include="Estado_NC.cs" />
+    <Compile Include="Fatura.cs" />
+    <Compile Include="Fatura_Hist.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="Item_Hist.cs" />
+    <Compile Include="Item_NC.cs" />
+    <Compile Include="Nota_Cred.cs" />
+    <Compile Include="Produto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

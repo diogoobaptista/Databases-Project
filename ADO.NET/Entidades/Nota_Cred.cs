@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Nota_Cred
+    public class Nota_Cred
     {
         public string codigo_nc { get; set; }
         public decimal ano { get; set; }

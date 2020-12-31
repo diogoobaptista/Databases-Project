@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    class Item_NC
+    public class Item_NC
     {
         public int quantidade { get; set; }
         public string codigo_nc { get; set; }
