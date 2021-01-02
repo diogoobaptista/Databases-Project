@@ -10,10 +10,11 @@ using System.Threading.Tasks;
 
 namespace DAL
 {
-    public class FaturaMapper
+    public class AddItemMapper
     {
         private String cs;
-        public FaturaMapper()
+
+        public AddItemMapper()
         {
             cs = ConfigurationManager.ConnectionStrings["base dados"].ConnectionString;
             if (cs == null)
@@ -22,15 +23,15 @@ namespace DAL
             }
         }
 
-        public List<Fatura> GetFaturas()
+        public List<Item> GetItemsFat()
         {
-            var faturas = new List<Fatura>();
+            var items = new List<Item>();
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(cs))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("select * from Fatura", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("select * from Item", sqlConnection))
                     {
                         sqlCommand.CommandType = CommandType.Text;
 
@@ -38,21 +39,17 @@ namespace DAL
                         {
                             while (sqlDataReader.Read())
                             {
-                                Fatura ft = new Fatura
+                                Item itt = new Item()
                                 {
-                                    codigo_fat = sqlDataReader.SafeGet<string>(0),
-                                    ano = sqlDataReader.SafeGet<decimal>(1),
-                                    nr_fat = sqlDataReader.SafeGet<decimal>(2),
-                                    dt_emissao = sqlDataReader.SafeGet<string>(3),
-                                    dt_criacao = sqlDataReader.SafeGet<string>(4),
-                                    val_total = sqlDataReader.SafeGet<decimal>(5),
-                                    val_iva = sqlDataReader.SafeGet<int>(6),
-                                    estado = sqlDataReader.SafeGet<string>(7),
-                                    nif = sqlDataReader.SafeGet<decimal>(8)
-                                   
+                                    num_item = sqlDataReader.SafeGet<int>(0),
+                                    desc_item = sqlDataReader.SafeGet<string>(1),
+                                    desconto = sqlDataReader.SafeGet<decimal>(2),
+                                    num_uni = sqlDataReader.SafeGet<decimal>(3),
+                                    codigo_fat = sqlDataReader.SafeGet<string>(4),
+                                    sku = sqlDataReader.SafeGet<string>(5)
                                 };
 
-                                faturas.Add(ft);
+                                items.Add(itt);
                             }
                         }
                     }
@@ -63,7 +60,7 @@ namespace DAL
                 Console.WriteLine(exception.Message);
                 throw exception;
             }
-            return faturas;
+            return items;
         }
     }
 }

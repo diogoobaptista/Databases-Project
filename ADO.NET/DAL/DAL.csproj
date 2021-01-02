@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddItemMapper.cs" />
     <Compile Include="FaturaMapper.cs" />
     <Compile Include="NCMapper.cs" />
     <Compile Include="NullOk.cs" />

@@ -52,6 +52,9 @@
     <Compile Include="ProcedureF.cs" />
     <Compile Include="InicialProcedure.cs" />
     <Compile Include="ProcedureG.cs" />
+    <Compile Include="ProcedureH.cs" />
+    <Compile Include="ProcedureI.cs" />
+    <Compile Include="ProcedureJ.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

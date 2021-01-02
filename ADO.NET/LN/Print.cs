@@ -28,14 +28,30 @@ namespace LN
             Console.WriteLine();
         }
 
-        public static void Nota_Cred(List<Nota_Cred> notasCred)
+        public static void Nota_Cred(List<Nota_Cred> ncs)
         {
-            foreach (Nota_Cred nc in notasCred)
+            ConsoleTable table = new ConsoleTable("Cod Nc", "Ano", "Nº NC", "Dt Emissao", "Dt Criacao", "Valor NC", "Estado", "Codigo Fat");
+
+            foreach (Nota_Cred nc in ncs)
             {
-                Console.WriteLine("Notas de Crédito: codigo_nc= " + nc.codigo_nc + "| ano= " + nc.ano + "| número da nc= " + nc.nr_nc +
-                    "| dt_emissao= " + nc.dt_emissao +"| dt_criacao= " + nc.dt_criacao + "| valor nc= " + nc.val_nc + "| estado nc= " + nc.estado + "| codigo fat= " + nc.codigo_fat);
-                Console.WriteLine("\n--------------------------------------------------------------------------------------------------------------");
+                table.AddRow(nc.codigo_nc, nc.ano, nc.nr_nc, nc.dt_emissao, nc.dt_criacao, nc.val_nc, nc.estado, nc.codigo_fat);
+                
             }
+            table.Write();
+            Console.WriteLine();
+        }
+
+        public static void Item(List<Item> itens)
+        {
+            ConsoleTable table = new ConsoleTable("Num item", "Desc", "Deconto", "Num Unid", "Codigo Fat", "SKU");
+
+            foreach (Item item in itens)
+            {
+                table.AddRow(item.num_item, item.desc_item, item.desconto, item.num_uni, item.codigo_fat, item.sku);
+
+            }
+            table.Write();
+            Console.WriteLine();
         }
     }
 }
