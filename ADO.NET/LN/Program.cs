@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Services;
 using Functions;
+using System.Threading;
 
 namespace LN
 {
@@ -160,7 +161,49 @@ namespace LN
             Console.WriteLine("Emissão de uma fatura:");
             FunctionE function = new FunctionE();
             string cod_fat = function.getNextFatCod("FT");
-            Console.WriteLine("cod faturaaaaa" + cod_fat);
+            Console.WriteLine("cod fatura" + cod_fat);
+            ProcedureF storedProcedureF = new ProcedureF();
+            FaturaService ft = new FaturaService();
+            Contribuinte ctTest = new Contribuinte();
+            ctTest.nif = 111111111;
+            ctTest.nome = "Joana Teste";
+            ctTest.morada = "Morada da Joana Teste";
+            storedProcedureF.p_criafatura(ctTest);
+            Print.Fatura(ft.GetFatura());
+
+            ProcedureH storedProcedureH = new ProcedureH();
+            AddItemService it = new AddItemService();
+            Item itsTest = new Item();
+
+            itsTest.desc_item = "bacalhau";
+            itsTest.num_uni = 3;
+            itsTest.sku = "321458";
+            itsTest.codigo_fat = "FT2021-11112";
+            itsTest.desconto = 0.2M;
+
+            storedProcedureH.AddItemsFat(itsTest);
+            Print.Item(it.GetItemsFat());
+
+            ProcedureI storedProcedureI = new ProcedureI();
+            Fatura ftTest = new Fatura();
+            
+            ftTest.codigo_fat = "FT2021-11112";
+
+            Thread.Sleep(1000);
+
+            storedProcedureI.AtualizarValorTotal(ftTest);
+            Print.Fatura(ft.GetFatura());
+
+            Thread.Sleep(1000);
+
+            ProcedureK storedProcedureK = new ProcedureK();
+
+            ftTest.codigo_fat = "FT2021-11112";
+            ftTest.estado = "Emitida";
+
+            storedProcedureK.AtualizarEstadoFat(ftTest);
+            Print.Fatura(ft.GetFatura());
+
             Console.ReadLine();
         }
 
