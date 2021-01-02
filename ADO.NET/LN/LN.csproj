@@ -62,6 +62,10 @@
       <Project>{197a3bfa-9e9f-45c8-a592-6a25c3900aad}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Functions\Functions.csproj">
+      <Project>{f21186e9-71a5-4d9c-aadf-ec007a577ae9}</Project>
+      <Name>Functions</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Procedures\Procedures.csproj">
       <Project>{727c674d-9e16-439b-a9dc-150e06ffae6d}</Project>
       <Name>Procedures</Name>

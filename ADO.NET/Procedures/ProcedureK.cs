@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Entidades;
+using Services;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -7,35 +8,34 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Functions
+namespace Procedures
 {
-    public class FunctionE
+    public class ProcedureK
     {
         private readonly string cs;
 
-        public FunctionE()
+        public ProcedureK()
         {
             cs = Session.GetConnectionString();
         }
-
-        public string getNextFatCod(string tipo_cod)
+        public void AtualizarEstadoFat(Fatura ft)
         {
             try
             {
                 using (SqlConnection sqlConnection = new SqlConnection(cs))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("getNextFatCod", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("AtualizarEstadoFat", sqlConnection))
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
-                        SqlParameter p1 = new SqlParameter("@tipo_codigo", tipo_cod);
-                        sqlCommand.Parameters.Add(p1);
 
-                        SqlParameter returnValue = sqlCommand.Parameters.Add("@RETURN_VALUE", SqlDbType.NVarChar);
-                        returnValue.Direction = ParameterDirection.ReturnValue;
+                        SqlParameter p1 = new SqlParameter("@codigo_fat", ft.codigo_fat);
+                        SqlParameter p2 = new SqlParameter("@novo_estado", ft.estado);
+
+                        sqlCommand.Parameters.Add(p1);
+                        sqlCommand.Parameters.Add(p2);
 
                         sqlCommand.ExecuteNonQuery();
-                        return (string)returnValue.Value;
                     }
                 }
             }

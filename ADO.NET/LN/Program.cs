@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Services;
+using Functions;
 
 namespace LN
 {
@@ -25,8 +26,8 @@ namespace LN
             TestExerciseI();
             //TestExerciseJ();
             TestExercise1b();
-            
-
+            TestExercise1c();
+            TestExerciseK();
         }
 
         private static void TestExerciseF()
@@ -153,7 +154,33 @@ namespace LN
             Console.ReadLine();
         }
 
+        private static void TestExercise1c()
+        {
+            Console.WriteLine("****************************** Exercise 1c test ****************************** \n");
+            Console.WriteLine("Emissão de uma fatura:");
+            FunctionE function = new FunctionE();
+            string cod_fat = function.getNextFatCod("FT");
+            Console.WriteLine("cod faturaaaaa" + cod_fat);
+            Console.ReadLine();
+        }
+
+        private static void TestExerciseK()
+        {
+            Console.WriteLine("****************************** Exercise K test ****************************** \n");
+            ProcedureK storedProcedure = new ProcedureK();
+            FaturaService ft = new FaturaService();
+            Fatura ftTest = new Fatura();
+
+            ftTest.codigo_fat = "FT2021-11111";
+            ftTest.estado = "Emitida";
+            
+            Console.WriteLine("AtualizarEstadoFat test : ");
+            storedProcedure.AtualizarEstadoFat(ftTest);
+            Print.Fatura(ft.GetFatura());
+            Console.WriteLine("******* PRESS ENTER *******");
+            Console.ReadLine();
 
 
         }
+    }
 }
