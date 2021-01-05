@@ -1,4 +1,6 @@
-﻿using Entidades;
+﻿using DAL;
+using Entidades;
+using Microsoft.SqlServer.Server;
 using Services;
 using System;
 using System.Collections.Generic;
@@ -18,46 +20,102 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public DataSet ListOfNotaCred(Nota_Cred nc)
+
+        public List<Nota_Cred> ListOfNotaCred(Nota_Cred notinhas)
         {
+            var notasc = new List<Nota_Cred>();
             try
             {
-
-                DataSet ds = new DataSet();
                 using (SqlConnection sqlConnection = new SqlConnection(cs))
                 {
                     sqlConnection.Open();
-                    
-                    using (SqlCommand sqlCommand = new SqlCommand("ListOfNotaCred", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred("+ notinhas.ano+")", sqlConnection))
                     {
-                        
-                        using (SqlDataAdapter da = new SqlDataAdapter(sqlCommand))
+                        sqlCommand.CommandType = CommandType.Text;
+
+                        using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                         {
+                            while (sqlDataReader.Read())
+                            {
+                                Nota_Cred nc = new Nota_Cred
+                                {
+                                    codigo_nc = sqlDataReader.SafeGet<string>(0),
+                                    ano = sqlDataReader.SafeGet<decimal>(1),
+                                    nr_nc = sqlDataReader.SafeGet<decimal>(2),
+                                    dt_emissao = sqlDataReader.SafeGet<string>(3),
+                                    dt_criacao = sqlDataReader.SafeGet<string>(4),
+                                    val_nc = sqlDataReader.SafeGet<decimal>(5),
+                                    estado = sqlDataReader.SafeGet<string>(6),
+                                    codigo_fat = sqlDataReader.SafeGet<string>(7)
 
-                          
-                            
-                            sqlCommand.CommandType = CommandType.StoredProcedure;
-                            sqlCommand.Parameters.AddWithValue("@ano", nc.ano); 
-                            
-                            da.Fill(ds);
-                           
+                                };
 
-                            //SqlParameter p1 = new SqlParameter("@ano", nc.ano);
-                          
-                           
-                            //sqlCommand.ExecuteNonQuery();
-                            Console.WriteLine("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF");
+                                notasc.Add(nc);
+                            }
                         }
                     }
-                    return ds ;
                 }
             }
             catch (Exception exception)
             {
                 Console.WriteLine(exception.Message);
-
                 throw exception;
+            }
+            return notasc;
+        }
+
+        /*
+        public void ListOfNotaCred(bool useDataTable,IEnumerable<decimal> ids)
+        {
+            using (SqlConnection connection = new SqlConnection(cs))
+            {
+                connection.Open();
+                using (SqlCommand command = connection.CreateCommand())
+                {
+                    command.CommandText = "dbo.ListOfNotaCred";
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    SqlParameter parameter;
+                    if (useDataTable)
+                    {
+                        parameter = command.Parameters
+                                      .AddWithValue("@Display", CreateDataTable(ids));
+                    }
+                    else
+                    {
+                        parameter = command.Parameters
+                                      .AddWithValue("@Display", CreateSqlDataRecords(ids));
+                    }
+                    parameter.SqlDbType = SqlDbType.Structured;
+                    parameter.TypeName = "dbo.ListOfNotaCred";
+
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        private static DataTable CreateDataTable(IEnumerable<decimal> ids)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("ID", typeof(long));
+            foreach (long id in ids)
+            {
+                table.Rows.Add(id);
+            }
+            return table;
+        }
+
+        private static IEnumerable<SqlDataRecord> CreateSqlDataRecords(IEnumerable<decimal> ids)
+        {
+            SqlMetaData[] metaData = new SqlMetaData[1];
+            metaData[0] = new SqlMetaData("ID", SqlDbType.BigInt);
+            SqlDataRecord record = new SqlDataRecord(metaData);
+            foreach (long id in ids)
+            {
+                record.SetInt64(0, id);
+                yield return record;
             }
         }
     }
+    */
 }

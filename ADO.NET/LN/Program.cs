@@ -20,15 +20,15 @@ namespace LN
         public static void Main(string[] args) {
             initialProcedure.ResetDB();
             Console.WriteLine("Click enter after each test to proceed \n ");
-            
-            TestExerciseF();
-            TestExerciseG();
-            TestExerciseH();
-            TestExerciseI();
+            TestExerciseJ();
+            //TestExerciseF();
+            // TestExerciseG();
+            //TestExerciseH();
+            //TestExerciseI();
             //TestExerciseJ();
-            TestExercise1b();
-            TestExercise1c();
-            TestExerciseK();
+            //TestExercise1b();
+            //TestExercise1c();
+            //TestExerciseK();
         }
 
         private static void TestExerciseF()
@@ -107,10 +107,9 @@ namespace LN
             Console.ReadLine();
 
         }
-
-       /* private static void TestExerciseJ()
+        private static void TestExerciseJ()
         {
-            Console.WriteLine("****************************** Exercise I test ****************************** \n");
+            Console.WriteLine("** Exercise J test ** \n");
             ProcedureJ storedProcedure = new ProcedureJ();
             NCService nc = new NCService();
             Nota_Cred ncTest = new Nota_Cred();
@@ -119,13 +118,11 @@ namespace LN
 
 
             Console.WriteLine("Listar Notas de Cred de um ano test : ");
-            storedProcedure.ListOfNotaCred(ncTest);
-            Print.Nota_Cred(nc.GetNotasCred());
+            Print.Nota_Cred((storedProcedure.ListOfNotaCred(ncTest)));
 
             Console.ReadLine();
 
-        }*/
-
+        }
         private static void TestExercise1b()
         {
             Console.WriteLine("****************************** Exercise 1b test ****************************** \n");
