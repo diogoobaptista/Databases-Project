@@ -29,7 +29,7 @@ namespace Procedures
                 using (SqlConnection sqlConnection = new SqlConnection(cs))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred("+ notinhas.ano+")", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred(" + notinhas.ano + ")", sqlConnection))
                     {
                         sqlCommand.CommandType = CommandType.Text;
 
@@ -63,6 +63,8 @@ namespace Procedures
             }
             return notasc;
         }
+    }
+}
 
         /*
         public void ListOfNotaCred(bool useDataTable,IEnumerable<decimal> ids)
@@ -118,4 +120,3 @@ namespace Procedures
         }
     }
     */
-}

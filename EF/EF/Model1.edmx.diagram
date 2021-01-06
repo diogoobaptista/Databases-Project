@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7c8cb6944f5a4b219ce192211607cd58" Name="Diagram1">
+        <EntityTypeShape EntityType="SI2Trab1Model.Codigo_Fatura" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Codigo_NotaCred" Width="1.5" PointX="3" PointY="3.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Contribuinte" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Estado_FAT" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Estado_NC" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Fatura" Width="1.5" PointX="3" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Fatura_Hist" Width="1.5" PointX="5.25" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Item" Width="1.5" PointX="8.25" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Item_NC" Width="1.5" PointX="10.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Nota_Cred" Width="1.5" PointX="5.25" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Produto" Width="1.5" PointX="6" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.Item_Hist" Width="1.5" PointX="5.25" PointY="19.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="SI2Trab1Model.ResumoFat" Width="1.5" PointX="7.75" PointY="1.75" IsExpanded="true" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Fatura__10373EF7" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Nota_Cred__15F0184D" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Fatura__nif__112B6330" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Fatura_Hist__nif__243E37A4" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Fatura__estado__0F431ABE" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Nota_Cred__estad__1407CFDB" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Fatura_Hi__codig__234A136B" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Item__codigo_fat__1BA8F1A3" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Item_Hist__codig__271AA44F" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Nota_Cred__codig__14FBF414" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Item__sku__1C9D15DC" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Item_NC__1F798287" ManuallyRouted="false" />
+        <AssociationConnector Association="SI2Trab1Model.FK__Item_NC__codigo___206DA6C0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

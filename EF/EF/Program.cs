@@ -1,63 +1,77 @@
-using Procedures;
-using Entidades;
-using System;
+锘縰sing System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Services;
-using Functions;
 using System.Threading;
 
-namespace LN
+namespace EF
 {
     class Program
     {
-       
-        private static InicialProcedure initialProcedure = new InicialProcedure();
-       
 
-        public static void Main(string[] args) {
-            initialProcedure.ResetDB();
-            Console.WriteLine("Click enter after each test to proceed \n ");
-            
-            TestExerciseF();
-            TestExerciseG();
-            TestExerciseH();
-            TestExerciseI();
-            TestExerciseJ();
-            TestExercise1b();
-            TestExercise1c();
-            TestExerciseK();
+        static void Main(string[] args)
+        {
+            using (var context = new SI2Trab1Entities())
+            {
+
+
+                Service service = new Service(context);
+                Console.WriteLine("Click enter after each test to proceed \n ");
+
+                TestExerciseF(service);
+                //TestExerciseG();
+                //TestExerciseH();
+                //TestExerciseI();
+                //TestExerciseJ();
+                //TestExercise1b();
+                //TestExercise1c();
+                //TestExerciseK();
+                Click("End");
+            }
         }
 
-        private static void TestExerciseF()
-        {
-            Console.WriteLine("****************************** Exercise F test ****************************** \n");
+            private static void Click(string nextMessage = "")
+            {
+                Console.ReadKey();
+                Console.WriteLine("\n{0}\n", nextMessage);
+            }
+
+            private static void TestExerciseF(Service service)
+            {
+                Click("************************** ExercicioF **************************");
+                
+                service.p_criafatura(111111111, "Joana Teste", "Morada da Joana Teste");
+                service.Fatura();
+
+
+
+
+            /*Console.WriteLine("****************************** Exercise F test ****************************** \n");
             ProcedureF storedProcedure = new ProcedureF();
             FaturaService ft = new FaturaService();
             Contribuinte ctTest = new Contribuinte();
-                ctTest.nif = 111111111;
-                ctTest.nome = "Joana Teste";
-                ctTest.morada = "Morada da Joana Teste";
-            
+            ctTest.nif = 111111111;
+            ctTest.nome = "Joana Teste";
+            ctTest.morada = "Morada da Joana Teste";
+
             Console.WriteLine("AddNewFat test : ");
             storedProcedure.p_criafatura(ctTest);
             Print.Fatura(ft.GetFatura());
             //initialProcedure.ResetDB();
             Console.WriteLine("******* PRESS ENTER *******");
-            Console.ReadLine();
+            Console.ReadLine();*/
 
-           
-        }
 
+            }
+        /*
         private static void TestExerciseG()
         {
             Console.WriteLine("****************************** Exercise G test ****************************** \n");
             ProcedureG storedProcedure = new ProcedureG();
             NCService nc = new NCService();
             Nota_Cred ncTest = new Nota_Cred();
-            
+
             ncTest.codigo_fat = "FT2001-12346";
 
             Console.WriteLine("AddNewNC test : ");
@@ -74,8 +88,8 @@ namespace LN
             ProcedureH storedProcedure = new ProcedureH();
             AddItemService it = new AddItemService();
             Item itsTest = new Item();
-          
-      
+
+
             itsTest.desc_item = "bacalhau";
             itsTest.num_uni = 3;
             itsTest.sku = "321458";
@@ -85,7 +99,7 @@ namespace LN
             Console.WriteLine("AddNewItem test : ");
             storedProcedure.AddItemsFat(itsTest);
             Print.Item(it.GetItemsFat());
-            
+
             Console.ReadLine();
 
         }
@@ -98,7 +112,7 @@ namespace LN
             Fatura ftTest = new Fatura();
 
             ftTest.codigo_fat = "FT2021-11111";
-       
+
 
             Console.WriteLine("AtualizarValorTotal test : ");
             storedProcedure.AtualizarValorTotal(ftTest);
@@ -126,19 +140,19 @@ namespace LN
         private static void TestExercise1b()
         {
             Console.WriteLine("****************************** Exercise 1b test ****************************** \n");
-            Console.WriteLine("C骴igo da pr髕ima fatura:");
+            Console.WriteLine("C贸digo da pr贸xima fatura:");
             FaturaService ft = new FaturaService();
             decimal anos = DateTime.Now.Year;
             List<Fatura> num = ft.GetFatura().Where(fatura => fatura.ano == anos).ToList();
-    
+
             decimal nr_fat = 11111;
             if (num.Any())
             {
-                nr_fat = num.LastOrDefault().nr_fat + 1;  
+                nr_fat = num.LastOrDefault().nr_fat + 1;
             }
-            Console.WriteLine("FT"+anos+"-" + nr_fat);
+            Console.WriteLine("FT" + anos + "-" + nr_fat);
 
-            Console.WriteLine("C骴igo da pr髕ima Nota de cr閐ito:");
+            Console.WriteLine("C贸digo da pr贸xima Nota de cr茅dito:");
             NCService nc = new NCService();
             decimal anos_nc = DateTime.Now.Year;
             List<Nota_Cred> ncs = nc.GetNotasCred().Where(nota_cred => nota_cred.ano == anos_nc).ToList();
@@ -155,7 +169,7 @@ namespace LN
         private static void TestExercise1c()
         {
             Console.WriteLine("****************************** Exercise 1c test ****************************** \n");
-            Console.WriteLine("Emiss鉶 de uma fatura:");
+            Console.WriteLine("Emiss茫o de uma fatura:");
             FunctionE function = new FunctionE();
             string cod_fat = function.getNextFatCod("FT");  //procedure E
             Console.WriteLine("cod fatura" + cod_fat);
@@ -185,7 +199,7 @@ namespace LN
 
             ProcedureI storedProcedureI = new ProcedureI(); //I
             Fatura ftTest = new Fatura();
-            
+
             ftTest.codigo_fat = "FT2021-11112";
 
             Thread.Sleep(1000);
@@ -217,7 +231,7 @@ namespace LN
 
             ftTest.codigo_fat = "FT2021-11111";
             ftTest.estado = "Emitida";
-            
+
             Console.WriteLine("AtualizarEstadoFat test : ");
             storedProcedure.AtualizarEstadoFat(ftTest);
             Print.Fatura(ft.GetFatura());
@@ -225,6 +239,6 @@ namespace LN
             Console.ReadLine();
 
 
-        }
+        }*/
     }
 }
