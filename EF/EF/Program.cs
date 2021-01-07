@@ -14,14 +14,13 @@ namespace EF
         {
             using (var context = new SI2Trab1Entities())
             {
-
-
                 Service service = new Service(context);
+                service.ResetDatabase();
                 Console.WriteLine("Click enter after each test to proceed \n ");
 
                 TestExerciseF(service);
-                //TestExerciseG();
-                //TestExerciseH();
+                TestExerciseG(service);
+                TestExerciseH(service);
                 //TestExerciseI();
                 //TestExerciseJ();
                 //TestExercise1b();
@@ -43,67 +42,22 @@ namespace EF
                 
                 service.p_criafatura(111111111, "Joana Teste", "Morada da Joana Teste");
                 service.Fatura();
+            }
+        
+            private static void TestExerciseG(Service service)
+            {
+                 Click("****************************** Exercise G test ****************************** \n");
+                 service.AddNewNC("FT2001-12346");
+                 service.Nota_Cred();
+            }
 
-
-
-
-            /*Console.WriteLine("****************************** Exercise F test ****************************** \n");
-            ProcedureF storedProcedure = new ProcedureF();
-            FaturaService ft = new FaturaService();
-            Contribuinte ctTest = new Contribuinte();
-            ctTest.nif = 111111111;
-            ctTest.nome = "Joana Teste";
-            ctTest.morada = "Morada da Joana Teste";
-
-            Console.WriteLine("AddNewFat test : ");
-            storedProcedure.p_criafatura(ctTest);
-            Print.Fatura(ft.GetFatura());
-            //initialProcedure.ResetDB();
-            Console.WriteLine("******* PRESS ENTER *******");
-            Console.ReadLine();*/
-
-
+            private static void TestExerciseH(Service service)
+            {
+                  Click("****************************** Exercise H test ****************************** \n");
+                  service.AddItemsFat("bacalhau", 0, 3, "FT2021-11111", "321458");
+                  service.Item();
             }
         /*
-        private static void TestExerciseG()
-        {
-            Console.WriteLine("****************************** Exercise G test ****************************** \n");
-            ProcedureG storedProcedure = new ProcedureG();
-            NCService nc = new NCService();
-            Nota_Cred ncTest = new Nota_Cred();
-
-            ncTest.codigo_fat = "FT2001-12346";
-
-            Console.WriteLine("AddNewNC test : ");
-            storedProcedure.AddNewNC(ncTest);
-            Print.Nota_Cred(nc.GetNotasCred());
-            //initialProcedure.ResetDB();
-            Console.ReadLine();
-
-        }
-
-        private static void TestExerciseH()
-        {
-            Console.WriteLine("****************************** Exercise H test ****************************** \n");
-            ProcedureH storedProcedure = new ProcedureH();
-            AddItemService it = new AddItemService();
-            Item itsTest = new Item();
-
-
-            itsTest.desc_item = "bacalhau";
-            itsTest.num_uni = 3;
-            itsTest.sku = "321458";
-            itsTest.codigo_fat = "FT2021-11111";
-            itsTest.desconto = 0.2M;
-
-            Console.WriteLine("AddNewItem test : ");
-            storedProcedure.AddItemsFat(itsTest);
-            Print.Item(it.GetItemsFat());
-
-            Console.ReadLine();
-
-        }
-
         private static void TestExerciseI()
         {
             Console.WriteLine("****************************** Exercise I test ****************************** \n");
