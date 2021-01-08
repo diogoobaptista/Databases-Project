@@ -21,7 +21,7 @@ namespace EF
                 TestExerciseF(service);
                 TestExerciseG(service);
                 TestExerciseH(service);
-                //TestExerciseI();
+                TestExerciseI(service);
                 //TestExerciseJ();
                 //TestExercise1b();
                 //TestExercise1c();
@@ -41,39 +41,37 @@ namespace EF
                 Click("************************** ExercicioF **************************");
                 
                 service.p_criafatura(111111111, "Joana Teste", "Morada da Joana Teste");
-                service.Fatura();
+                service.Print_Fatura();
             }
         
             private static void TestExerciseG(Service service)
             {
                  Click("****************************** Exercise G test ****************************** \n");
                  service.AddNewNC("FT2001-12346");
-                 service.Nota_Cred();
+                 service.Print_Nota_Cred();
             }
 
             private static void TestExerciseH(Service service)
             {
                   Click("****************************** Exercise H test ****************************** \n");
                   service.AddItemsFat("bacalhau", 0, 3, "FT2021-11111", "321458");
-                  service.Item();
+                  service.Print_Item();
             }
+
+            private static void TestExerciseI(Service service)
+            {
+                Click("****************************** Exercise I test ****************************** \n");
+                service.AtualizarValorTotal("FT2021-11111");
+                service.Print_Fatura();
+            }
+
+            private static void TestExerciseJ(Service service)
+            {
+                Click("****************************** Exercise I test ****************************** \n");
+                service.Print_List_Of_Nc(service.ListOfNotaCred(2001));
+            }
+
         /*
-        private static void TestExerciseI()
-        {
-            Console.WriteLine("****************************** Exercise I test ****************************** \n");
-            ProcedureI storedProcedure = new ProcedureI();
-            FaturaService ft = new FaturaService();
-            Fatura ftTest = new Fatura();
-
-            ftTest.codigo_fat = "FT2021-11111";
-
-
-            Console.WriteLine("AtualizarValorTotal test : ");
-            storedProcedure.AtualizarValorTotal(ftTest);
-            Print.Fatura(ft.GetFatura());
-
-            Console.ReadLine();
-
         }
         private static void TestExerciseJ()
         {

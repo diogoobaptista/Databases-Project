@@ -44,7 +44,7 @@ namespace EF
             }
         }
 
-        public void Fatura()
+        public void Print_Fatura()
         {
             ConsoleTable table = new ConsoleTable("Cod Fat", "Ano", "Nº Fat", "Dt Emissao", "Dt Criacao", "Valor Total", "Valor Iva", "Estado", "nif");
 
@@ -56,20 +56,7 @@ namespace EF
             Console.WriteLine();
         }
 
-        public void p_criafatura(decimal nif, string nome, string morada)
-        {
-            try
-            {
-                //Contribuinte ct = new Contribuinte() { nif = nif, nome = nome, morada = morada };
-                context.p_criafatura(nif, nome, morada);
-                
-            } catch (Exception e) {
-                Console.WriteLine("Error while creating new fatura:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
-            }
-        }
-
-        public void Nota_Cred()
+        public void Print_Nota_Cred()
         {
             ConsoleTable table = new ConsoleTable("Cod Nc", "Ano", "Nº NC", "Dt Emissao", "Dt Criacao", "Valor NC", "Estado", "Codigo Fat");
 
@@ -80,6 +67,46 @@ namespace EF
             }
             table.Write();
             Console.WriteLine();
+        }
+
+        public void Print_Item()
+        {
+            ConsoleTable table = new ConsoleTable("Num item", "Desc", "Deconto", "Num Unid", "Codigo Fat", "SKU");
+
+            foreach (Item item in context.Item)
+            {
+                table.AddRow(item.num_item, item.desc_item, item.desconto, item.num_uni, item.codigo_fat, item.sku);
+
+            }
+            table.Write();
+            Console.WriteLine();
+        }
+
+        public void Print_List_Of_Nc(List<ListOfNotaCred_Result> lista)
+        {
+            ConsoleTable table = new ConsoleTable("Cod Nc", "Ano", "Nº NC", "Dt Emissao", "Dt Criacao", "Valor NC", "Estado", "Codigo Fat");
+
+            var iterator = lista.GetEnumerator();
+            while (iterator.MoveNext())
+            {
+                var nc = iterator.Current;
+                table.AddRow(nc.codigo_nc, nc.ano, nc.nr_nc, nc.dt_emissao, nc.dt_criacao, nc.val_nc, nc.estado, nc.codigo_fat);
+            }
+
+            table.Write();
+            Console.WriteLine();
+        }
+
+        public void p_criafatura(decimal nif, string nome, string morada)
+        {
+            try
+            {
+                context.p_criafatura(nif, nome, morada);
+                
+            } catch (Exception e) {
+                Console.WriteLine("Error while creating new fatura:");
+                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+            }
         }
 
         public void AddNewNC(string codigo_fat)
@@ -96,19 +123,6 @@ namespace EF
 
         }
 
-        public void Item()
-        {
-            ConsoleTable table = new ConsoleTable("Num item", "Desc", "Deconto", "Num Unid", "Codigo Fat", "SKU");
-
-            foreach (Item item in context.Item)
-            {
-                table.AddRow(item.num_item, item.desc_item, item.desconto, item.num_uni, item.codigo_fat, item.sku);
-
-            }
-            table.Write();
-            Console.WriteLine();
-        }
-
         public void AddItemsFat(string desc_item, decimal desconto, decimal num_uni, string codigo_fat, string sku)
         {
             try
@@ -119,6 +133,34 @@ namespace EF
             {
                 Console.WriteLine("Error while creating new fatura with itens:");
                 Console.WriteLine("-- {0}", e.GetBaseException().Message);
+            }
+
+        }
+
+        public void AtualizarValorTotal(string codigo_fat)
+        {
+            try
+            {
+                context.AtualizarValorTotal(codigo_fat);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while creating new fatura with itens:");
+                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+            }
+        }
+
+        public List<ListOfNotaCred_Result> ListOfNotaCred(decimal ano)
+        {
+            try
+            {
+                return context.ListOfNotaCred(ano).ToList();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while creating new fatura with itens:");
+                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                return null;
             }
 
         }
