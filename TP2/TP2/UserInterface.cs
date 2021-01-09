@@ -1,4 +1,5 @@
-﻿using Entidades;
+﻿using EF;
+using Entidades;
 using Procedures;
 using Services;
 using System;
@@ -34,7 +35,18 @@ namespace TP2
             }
             else if (option == "E")
             {
+                // using (TransactionScope ts = GetTs())
+                //{
+                using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
+                {
+                    Service service = new Service(context);
+                    service.p_criafatura(nif, nome, morada);
+                    service.Print_Fatura();
+
+                }
+                //ts.Complete();
                 return 0;
+                //}
             }
             else { Console.WriteLine("Invalid Option"); return -1; }
 
