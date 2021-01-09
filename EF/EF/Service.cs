@@ -1,6 +1,8 @@
 ﻿using ConsoleTables;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,8 +16,9 @@ namespace EF
         public Service(SI2Trab1Entities context)
         {
             this.context = context;
-        }
 
+        }
+            
         public void SaveChanges()
         {
             try
@@ -28,6 +31,16 @@ namespace EF
                 Console.WriteLine("-- {0}", e.GetBaseException().Message);
             }
         }
+
+        public void RefreshAll()
+        {
+            foreach (var entity in context.ChangeTracker.Entries())
+            {
+                entity.Reload();
+            }
+        }
+
+
 
         public void ResetDatabase()
         {
@@ -145,7 +158,7 @@ namespace EF
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while creating new fatura with itens:");
+                Console.WriteLine("Error while update fatura with valorTotal:");
                 Console.WriteLine("-- {0}", e.GetBaseException().Message);
             }
         }
@@ -158,12 +171,50 @@ namespace EF
             }
             catch (Exception e)
             {
-                Console.WriteLine("Error while creating new fatura with itens:");
+                Console.WriteLine("Error while creating list of NC:");
                 Console.WriteLine("-- {0}", e.GetBaseException().Message);
                 return null;
             }
 
         }
+
+        public void AtualizarEstadoFat(string codigo_fat, string novoEstado)
+        {
+            try
+            {
+                context.AtualizarEstadoFat(codigo_fat, novoEstado);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Error while update fatura with novoEstado:");
+                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+            }
+        }
+
+         public string GetNextFatCod(string tipo_cod)
+         {
+            decimal anos = DateTime.Now.Year;
+            if (tipo_cod == "FT") {
+                List<Fatura> num = context.Fatura.Where(fatura => fatura.ano == anos).ToList();
+                decimal nr_fat = 11111;
+                if (num.Any())
+                {
+                    nr_fat = num.LastOrDefault().nr_fat + 1;
+                }
+                return tipo_cod + anos + "-" + nr_fat;
+            }
+            else if(tipo_cod == "NC")
+            {
+                List<Nota_Cred> num_nc = context.Nota_Cred.Where(nota_cred => nota_cred.ano == anos).ToList();
+                decimal nc_nr = 11111;
+                if (num_nc.Any())
+                {
+                    nc_nr = num_nc.LastOrDefault().nr_nc + 1;
+                }
+                return tipo_cod + anos + "-" + nc_nr;
+            }
+            return null;
+         }
 
 
     }

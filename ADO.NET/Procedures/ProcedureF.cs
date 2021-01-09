@@ -18,7 +18,7 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public void p_criafatura(Contribuinte ct)
+        public void p_criafatura(decimal nif, string nome, string morada)
         {
             try
             {
@@ -29,9 +29,9 @@ namespace Procedures
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@nif", ct.nif);
-                        SqlParameter p2 = new SqlParameter("@nome", ct.nome);
-                        SqlParameter p3 = new SqlParameter("@morada", ct.morada);
+                        SqlParameter p1 = new SqlParameter("@nif", nif);
+                        SqlParameter p2 = new SqlParameter("@nome", nome);
+                        SqlParameter p3 = new SqlParameter("@morada", morada);
 
                         sqlCommand.Parameters.Add(p1);
                         sqlCommand.Parameters.Add(p2);

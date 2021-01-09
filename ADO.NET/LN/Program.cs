@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Services;
 using Functions;
 using System.Threading;
+using System.Diagnostics;
 
 namespace LN
 {
@@ -18,6 +19,8 @@ namespace LN
        
 
         public static void Main(string[] args) {
+            var stopwatch = new Stopwatch();
+            stopwatch.Start();
             initialProcedure.ResetDB();
             Console.WriteLine("Click enter after each test to proceed \n ");
             
@@ -26,9 +29,13 @@ namespace LN
             TestExerciseH();
             TestExerciseI();
             TestExerciseJ();
+            TestExerciseK();
             TestExercise1b();
             TestExercise1c();
-            TestExerciseK();
+            
+            stopwatch.Stop();
+            Console.WriteLine($"Tempo passado: {stopwatch.Elapsed}");
+            Console.ReadLine();
         }
 
         private static void TestExerciseF()
@@ -123,6 +130,24 @@ namespace LN
             Console.ReadLine();
 
         }
+
+        private static void TestExerciseK()
+        {
+            Console.WriteLine("****************************** Exercise K test ****************************** \n");
+            ProcedureK storedProcedure = new ProcedureK();
+            FaturaService ft = new FaturaService();
+            Fatura ftTest = new Fatura();
+
+            ftTest.codigo_fat = "FT2021-11111";
+            ftTest.estado = "Emitida";
+
+            Console.WriteLine("AtualizarEstadoFat test : ");
+            storedProcedure.AtualizarEstadoFat(ftTest);
+            Print.Fatura(ft.GetFatura());
+            Console.WriteLine("******* PRESS ENTER *******");
+            Console.ReadLine();
+        }
+
         private static void TestExercise1b()
         {
             Console.WriteLine("****************************** Exercise 1b test ****************************** \n");
@@ -166,8 +191,8 @@ namespace LN
             ctTest.nome = "Joana Teste";
             ctTest.morada = "Morada da Joana Teste";
             storedProcedureF.p_criafatura(ctTest);
-            Console.WriteLine("//////////// Criar fatura sem Item ////////////");
-            Print.Fatura(ft.GetFatura());
+            //Console.WriteLine("//////////// Criar fatura sem Item ////////////");
+            //Print.Fatura(ft.GetFatura());
 
             ProcedureH storedProcedureH = new ProcedureH(); //H
             AddItemService it = new AddItemService();
@@ -180,8 +205,8 @@ namespace LN
             itsTest.desconto = 0.2M;
 
             storedProcedureH.AddItemsFat(itsTest);
-            Console.WriteLine("//////////// Adicionar fatura com Item ////////////");
-            Print.Item(it.GetItemsFat());
+            //Console.WriteLine("//////////// Adicionar fatura com Item ////////////");
+            //Print.Item(it.GetItemsFat());
 
             ProcedureI storedProcedureI = new ProcedureI(); //I
             Fatura ftTest = new Fatura();
@@ -191,8 +216,8 @@ namespace LN
             Thread.Sleep(1000);
 
             storedProcedureI.AtualizarValorTotal(ftTest);
-            Console.WriteLine("//////////// Atualizar fatura com valor total atualizado ////////////");
-            Print.Fatura(ft.GetFatura());
+            //Console.WriteLine("//////////// Atualizar fatura com valor total atualizado ////////////");
+            //Print.Fatura(ft.GetFatura());
 
             Thread.Sleep(1000);
 
@@ -202,29 +227,10 @@ namespace LN
             ftTest.estado = "Emitida";
 
             storedProcedureK.AtualizarEstadoFat(ftTest);
-            Console.WriteLine("//////////// Atualizar estado da fatura ////////////");
+            //Console.WriteLine("//////////// Atualizar estado da fatura ////////////");
             Print.Fatura(ft.GetFatura());
 
             Console.ReadLine();
-        }
-
-        private static void TestExerciseK()
-        {
-            Console.WriteLine("****************************** Exercise K test ****************************** \n");
-            ProcedureK storedProcedure = new ProcedureK();
-            FaturaService ft = new FaturaService();
-            Fatura ftTest = new Fatura();
-
-            ftTest.codigo_fat = "FT2021-11111";
-            ftTest.estado = "Emitida";
-            
-            Console.WriteLine("AtualizarEstadoFat test : ");
-            storedProcedure.AtualizarEstadoFat(ftTest);
-            Print.Fatura(ft.GetFatura());
-            Console.WriteLine("******* PRESS ENTER *******");
-            Console.ReadLine();
-
-
         }
     }
 }
