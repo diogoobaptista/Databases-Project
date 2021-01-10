@@ -1,4 +1,5 @@
-﻿using EF;
+﻿using DAL;
+using EF;
 using Entidades;
 using Procedures;
 using Services;
@@ -14,6 +15,7 @@ namespace TP2.UserInterface
     {
         public static int AddItemFat()
         {
+            Print.Produto(new ProdutoService().GetProdutos());
             Console.Write("Qual o çodigo da fatura onde pretende adicionar itens?: ");
             string codigo = Console.ReadLine();
             Console.Write("Qual o item a adicionar a fatura?: ");
@@ -22,7 +24,7 @@ namespace TP2.UserInterface
             string sku = Console.ReadLine();
             Console.Write("Qual o numero de unidades?: ");
             decimal num_uni = Decimal.Parse(Console.ReadLine());
-            Console.Write("Desconto? eg:0.2");
+            Console.Write("Desconto? \n eg:0.2");
             decimal desconto = Decimal.Parse(Console.ReadLine());
             //TODO VALIDAR SE O DESCONTO INSERIDO É CONFORME O ESPERADO COM 
             Console.Write("Insira 'A' caso queira o formato ADO.Net ou 'E' caso queira o formato EF: ");

@@ -9,7 +9,7 @@ namespace TP2.TestSuit
     public class TestEF
     {
 
-        public static void RunSuit()
+        public static string RunSuit()
         {
             using (var context = new SI2Trab1Entities())
             {
@@ -19,7 +19,6 @@ namespace TP2.TestSuit
                 Service service = new Service(context);
 
                 service.ResetDatabase();
-                Console.WriteLine("Click enter after each test to proceed \n ");
 
                 TestExerciseF(service);
                 TestExerciseG(service);
@@ -30,16 +29,9 @@ namespace TP2.TestSuit
                 TestExercise1b(service);
                 TestExercise1c(service);
                 stopwatch.Stop();
-                Console.WriteLine($"Tempo passado: {stopwatch.Elapsed}");
-                Click("End");
-                Console.ReadLine();
+                string result = $"Tempo passado: {stopwatch.Elapsed}";
+                return result;
             }
-        }
-
-        private static void Click(string nextMessage = "")
-        {
-            Console.ReadKey();
-            Console.WriteLine("\n{0}\n", nextMessage);
         }
 
         private static void TestExerciseF(Service service)
@@ -108,13 +100,13 @@ namespace TP2.TestSuit
 
         private static void TestExercise1c(Service service)
         {
-            Click("****************************** Exercise 1c test ****************************** \n");
+            Console.WriteLine("****************************** Exercise 1c test ****************************** \n");
             string code = service.GetNextFatCod("FT"); //exercicio e
             service.p_criafatura(111111111, "Joana Teste", "Morada da Joana Teste"); //exercicio f
             service.AddItemsFat("bolo", 0, 3, code, "321455"); //exercicio H
-            Thread.Sleep(1000);
+            
             service.AtualizarValorTotal(code); //exercicio I
-            Thread.Sleep(1000);
+            
             service.AtualizarEstadoFat(code, "Emitida");//exercicio K
             service.Print_Fatura();
             Console.WriteLine("******* OK *******");

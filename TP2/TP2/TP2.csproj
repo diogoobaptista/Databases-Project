@@ -148,6 +148,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\ADO.NET\DAL\DAL.csproj">
+      <Project>{1557BA14-5B8F-4363-A7B1-1D6C18BDE70D}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\ADO.NET\Entidades\Entidades.csproj">
       <Project>{197A3BFA-9E9F-45C8-A592-6A25C3900AAD}</Project>
       <Name>Entidades</Name>

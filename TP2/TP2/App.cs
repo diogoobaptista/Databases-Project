@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Procedures;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -55,6 +56,7 @@ namespace TP2
 
         public OPTIONS DisplayMenu()
         {
+            
             OPTIONS option = OPTIONS.NONE;
             try
             {
@@ -78,6 +80,7 @@ namespace TP2
 
         public void Run()
         {
+            new InicialProcedure().ResetDB();
             OPTIONS userInput = OPTIONS.NONE;
             do
             {

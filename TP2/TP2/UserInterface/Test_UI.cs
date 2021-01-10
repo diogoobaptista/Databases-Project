@@ -8,10 +8,18 @@ namespace TP2.UserInterface
         {
             try
             {
+                Console.Write("Click Enter to run ADO tests");
+                Console.ReadLine();
                 Console.Write("Run ADO tests:");
-                TestSuit.TestADO.RunSuit();
+                string adoRes = TestSuit.TestADO.RunSuit();
+                
+            
+                Console.Write("Click Enter to run EF tests");
+                Console.ReadLine();
                 Console.Write("Run EF tests:");
-                TestSuit.TestEF.RunSuit();
+                string efRes = TestSuit.TestEF.RunSuit();
+                Console.WriteLine("Tempo de execução ADO: " + adoRes+ "\n Tempo de execução EF: "+efRes);
+                Console.ReadLine();
                 return 0;
             }
             catch(Exception e)

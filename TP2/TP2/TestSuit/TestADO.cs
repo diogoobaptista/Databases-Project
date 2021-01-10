@@ -16,7 +16,7 @@ namespace TP2.TestSuit
         private static InicialProcedure initialProcedure = new InicialProcedure();
 
 
-        public static void RunSuit()
+        public static string RunSuit()
         {
             var stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -33,8 +33,8 @@ namespace TP2.TestSuit
             TestExercise1c();
 
             stopwatch.Stop();
-            Console.WriteLine($"Tempo passado: {stopwatch.Elapsed}");
-            Console.ReadLine();
+            string result = $"Tempo passado: {stopwatch.Elapsed}";
+            return result;
         }
 
         private static void TestExerciseF()
@@ -71,7 +71,7 @@ namespace TP2.TestSuit
             storedProcedure.AddItemsFat("FT2021-11111", "bacalhau", "321458",3,0.2M);
             Print.Item(it.GetItemsFat());
             Console.WriteLine("AddNewItem test : OK");
-           //Console.ReadLine();
+            //Console.ReadLine();
 
         }
 
@@ -104,7 +104,7 @@ namespace TP2.TestSuit
             storedProcedure.AtualizarEstadoFat("FT2021-11111", "Emitida");
             Print.Fatura(ft.GetFatura());
             Console.WriteLine("AtualizarEstadoFat test : OK");
-           // Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private static void TestExercise1b()
@@ -134,7 +134,7 @@ namespace TP2.TestSuit
             }
             Console.WriteLine("NC" + anos + "-" + nc_nr);
             Console.WriteLine("******* OK *******");
-            Console.ReadLine();
+            //Console.ReadLine();
         }
 
         private static void TestExercise1c()
@@ -159,13 +159,13 @@ namespace TP2.TestSuit
 
             ProcedureI storedProcedureI = new ProcedureI(); //I
 
-            Thread.Sleep(1000);
+          
 
             storedProcedureI.AtualizarValorTotal(cod_fat);
             //Console.WriteLine("//////////// Atualizar fatura com valor total atualizado ////////////");
             //Print.Fatura(ft.GetFatura());
 
-            Thread.Sleep(1000);
+            
 
             ProcedureK storedProcedureK = new ProcedureK(); //K
 

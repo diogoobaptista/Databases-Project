@@ -37,7 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ConsoleTables, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\ConsoleTables.2.4.2\lib\net40\ConsoleTables.dll</HintPath>
+      <HintPath>..\..\TP2\packages\ConsoleTables.2.4.2\lib\net40\ConsoleTables.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -53,6 +53,7 @@
     <Compile Include="AddItemService.cs" />
     <Compile Include="FaturaService.cs" />
     <Compile Include="NCService.cs" />
+    <Compile Include="ProdutoService.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

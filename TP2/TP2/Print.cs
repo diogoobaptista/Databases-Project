@@ -53,5 +53,18 @@ namespace TP2
             table.Write();
             Console.WriteLine();
         }
+
+        public static void Produto(List<Produto> produtos)
+        {
+            ConsoleTable table = new ConsoleTable("SKU", "Desc", "Iva", "Preço Unid");
+
+            foreach (Produto produto in produtos)
+            {
+                table.AddRow(produto.sku, produto.desc_prod, produto.perc_iva, produto.preco_unit);
+
+            }
+            table.Write();
+            Console.WriteLine();
+        }
     }
 }
