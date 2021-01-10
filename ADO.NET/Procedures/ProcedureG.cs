@@ -18,7 +18,7 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public void AddNewNC(Nota_Cred nc)
+        public void AddNewNC(string codigo_fat)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Procedures
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@codigo_fat", nc.codigo_fat);
+                        SqlParameter p1 = new SqlParameter("@codigo_fat", codigo_fat);
                         sqlCommand.Parameters.Add(p1);
 
                         sqlCommand.ExecuteNonQuery();

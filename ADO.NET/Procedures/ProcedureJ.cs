@@ -21,7 +21,7 @@ namespace Procedures
             cs = Session.GetConnectionString();
         }
 
-        public List<Nota_Cred> ListOfNotaCred(Nota_Cred notinhas)
+        public List<Nota_Cred> ListOfNotaCred(decimal ano)
         {
             var notasc = new List<Nota_Cred>();
             try
@@ -29,7 +29,7 @@ namespace Procedures
                 using (SqlConnection sqlConnection = new SqlConnection(cs))
                 {
                     sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred(" + notinhas.ano + ")", sqlConnection))
+                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred(" + ano + ")", sqlConnection))
                     {
                         sqlCommand.CommandType = CommandType.Text;
 

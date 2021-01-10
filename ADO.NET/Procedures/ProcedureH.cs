@@ -18,7 +18,7 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public void AddItemsFat(Item it)
+        public void AddItemsFat(string codigo_fat, string desc_item, string sku, decimal num_uni, decimal desconto)
         {
             try
             {
@@ -29,11 +29,11 @@ namespace Procedures
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@desc_item", it.desc_item);
-                        SqlParameter p2 = new SqlParameter("@desconto", it.desconto);
-                        SqlParameter p3 = new SqlParameter("@num_uni", it.num_uni);
-                        SqlParameter p4 = new SqlParameter("@codigo_fat", it.codigo_fat);
-                        SqlParameter p5 = new SqlParameter("@sku", it.sku);
+                        SqlParameter p1 = new SqlParameter("@desc_item", desc_item);
+                        SqlParameter p2 = new SqlParameter("@desconto", desconto);
+                        SqlParameter p3 = new SqlParameter("@num_uni", num_uni);
+                        SqlParameter p4 = new SqlParameter("@codigo_fat", codigo_fat);
+                        SqlParameter p5 = new SqlParameter("@sku", sku);
                         sqlCommand.Parameters.Add(p1);
                         sqlCommand.Parameters.Add(p2);
                         sqlCommand.Parameters.Add(p3);

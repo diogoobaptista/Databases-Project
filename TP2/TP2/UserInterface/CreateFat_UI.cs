@@ -7,13 +7,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
-namespace TP2
+
+namespace TP2.UserInterface
 {
-    class UserInterface
+    class CreateFat_UI
     {
         //Criar Fatura
-        public static int CF()
+        public static int CreateFatura()
         {
             Console.WriteLine("Criar Fatura");
             Console.Write("Insira o seu nif: ");
@@ -28,8 +30,7 @@ namespace TP2
             {
                 FaturaService ft = new FaturaService();
                 ProcedureF storedProcedure = new ProcedureF();
-                Contribuinte ctTest = new Contribuinte();
-                storedProcedure.p_criafatura(ctTest.nif=nif, ctTest.nome=nome, ctTest.morada=morada);
+                storedProcedure.p_criafatura(nif, nome, morada);
                 Print.Fatura(ft.GetFatura());
                 return 0;
             }
@@ -49,8 +50,6 @@ namespace TP2
                 //}
             }
             else { Console.WriteLine("Invalid Option"); return -1; }
-
-          
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public void AtualizarEstadoFat(Fatura ft)
+        public void AtualizarEstadoFat(string codigo_fat, string estado)
         {
             try
             {
@@ -29,8 +29,8 @@ namespace Procedures
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@codigo_fat", ft.codigo_fat);
-                        SqlParameter p2 = new SqlParameter("@novo_estado", ft.estado);
+                        SqlParameter p1 = new SqlParameter("@codigo_fat", codigo_fat);
+                        SqlParameter p2 = new SqlParameter("@novo_estado", estado);
 
                         sqlCommand.Parameters.Add(p1);
                         sqlCommand.Parameters.Add(p2);

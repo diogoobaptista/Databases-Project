@@ -20,6 +20,7 @@ namespace TP2
             Obter_Cod_Fatura,
             Obter_Cod_NC,
             Emitir_Fatura,
+            Testes,
             Exit
         };
 
@@ -40,15 +41,16 @@ namespace TP2
         private App()
         {
             funcs = new Dictionary<OPTIONS, DBMethod>();
-            funcs.Add(OPTIONS.Criar_Fatura, UserInterface.CF);
-            /*funcs.Add(OPTIONS.Criar_Nota_Crédito, UserInterface.I2);
-            funcs.Add(OPTIONS.Add_Item_A_Fatura, UserInterface.I3);
-            funcs.Add(OPTIONS.Atualizar_Valor_Total, UserInterface.D1);
-            funcs.Add(OPTIONS.Listar_Nota_Cred_AnoX, UserInterface.D2);
-            funcs.Add(OPTIONS.Atualizar_Estado_Fatura, UserInterface.D3);
-            funcs.Add(OPTIONS.Obter_Cod_Fatura, UserInterface.U1);
-            funcs.Add(OPTIONS.Obter_Cod_NC, UserInterface.U2);
-            funcs.Add(OPTIONS.Emitir_Fatura, UserInterface.U3); */ 
+            funcs.Add(OPTIONS.Criar_Fatura, UserInterface.CreateFat_UI.CreateFatura);
+            funcs.Add(OPTIONS.Criar_Nota_Crédito, UserInterface.CreateNc_UI.CreateNotaCredito);
+            funcs.Add(OPTIONS.Add_Item_A_Fatura, UserInterface.AddItemFat_UI.AddItemFat);
+            funcs.Add(OPTIONS.Atualizar_Valor_Total, UserInterface.UpdtTotalFat_UI.UpdtTotalFat);
+            funcs.Add(OPTIONS.Listar_Nota_Cred_AnoX, UserInterface.ListNcForYear_UI.ListNcForYear);
+            funcs.Add(OPTIONS.Atualizar_Estado_Fatura, UserInterface.UpdtEstadoFat_UI.UpdtEstadoFat);
+            funcs.Add(OPTIONS.Obter_Cod_Fatura, UserInterface.GetNextCodFat_UI.GetNextCodFat);
+            funcs.Add(OPTIONS.Obter_Cod_NC, UserInterface.GetNextCodNc_UI.GetNextCodNC);
+            funcs.Add(OPTIONS.Emitir_Fatura, UserInterface.EmitirFatura_UI.EmitirFatura);
+            funcs.Add(OPTIONS.Testes, UserInterface.Test_UI.Test);
         }
 
         public OPTIONS DisplayMenu()

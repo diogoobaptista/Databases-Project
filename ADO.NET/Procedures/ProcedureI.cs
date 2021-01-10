@@ -18,7 +18,7 @@ namespace Procedures
         {
             cs = Session.GetConnectionString();
         }
-        public void AtualizarValorTotal(Fatura ft)
+        public void AtualizarValorTotal(string codigo_fat)
         {
             try
             {
@@ -29,7 +29,7 @@ namespace Procedures
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@codigo_fat", ft.codigo_fat);
+                        SqlParameter p1 = new SqlParameter("@codigo_fat", codigo_fat);
                        
                         sqlCommand.Parameters.Add(p1);
      
