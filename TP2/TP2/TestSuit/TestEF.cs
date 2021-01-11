@@ -2,6 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Threading;
+using System.Transactions;
 using TP2.EF;
 
 namespace TP2.TestSuit
@@ -11,25 +12,30 @@ namespace TP2.TestSuit
 
         public static string RunSuit()
         {
-            using (var context = new SI2Trab1Entities())
+            string result = null;
+            using (TransactionScope ts = Transaction.GetTsSerializable())
             {
-                var stopwatch = new Stopwatch();
-                stopwatch.Start();
+                using (var context = new SI2Trab1Entities())
+                {
+                    var stopwatch = new Stopwatch();
+                    stopwatch.Start();
 
-                Service service = new Service(context);
+                    Service service = new Service(context);
 
-                service.ResetDatabase();
+                    service.ResetDatabase();
 
-                TestExerciseF(service);
-                TestExerciseG(service);
-                TestExerciseH(service);
-                TestExerciseI(service);
-                TestExerciseJ(service);
-                TestExerciseK(service);
-                TestExercise1b(service);
-                TestExercise1c(service);
-                stopwatch.Stop();
-                string result = $"Tempo passado: {stopwatch.Elapsed}";
+                    TestExerciseF(service);
+                    TestExerciseG(service);
+                    TestExerciseH(service);
+                    TestExerciseI(service);
+                    TestExerciseJ(service);
+                    TestExerciseK(service);
+                    TestExercise1b(service);
+                    TestExercise1c(service);
+                    stopwatch.Stop();
+                    result = $"Tempo passado: {stopwatch.Elapsed}";
+                }
+                ts.Complete();
                 return result;
             }
         }
@@ -40,7 +46,7 @@ namespace TP2.TestSuit
 
             service.p_criafatura(111111111, "Joana Teste", "Morada da Joana Teste");
             service.SaveChanges();
-            service.Print_Fatura();
+            EF.Print.Print_Fatura(service.context);
             Console.WriteLine("AddNewFat test : OK ");
         }
 
@@ -48,7 +54,7 @@ namespace TP2.TestSuit
         {
             Console.WriteLine("****************************** Exercise G test ****************************** \n");
             service.AddNewNC("FT2001-12346");
-            service.Print_Nota_Cred();
+            EF.Print.Print_Nota_Cred(service.context);
             Console.WriteLine("AddNewNC test :  OK ");
         }
 
@@ -57,7 +63,7 @@ namespace TP2.TestSuit
             Console.WriteLine("****************************** Exercise H test ****************************** \n");
             service.AddItemsFat("bacalhau", (decimal)0.3, 3, "FT2021-11111", "321458");
             service.SaveChanges();
-            service.Print_Item();
+            EF.Print.Print_Item(service.context);
             Console.WriteLine("AddNewItem test : OK");
         }
 
@@ -67,14 +73,14 @@ namespace TP2.TestSuit
             service.AtualizarValorTotal("FT2021-11111");
             service.RefreshAll();
             service.SaveChanges();
-            service.Print_Fatura();
+            EF.Print.Print_Fatura(service.context);
             Console.WriteLine("AtualizarValorTotal test : OK");
         }
 
         private static void TestExerciseJ(Service service)
         {
             Console.WriteLine("****************************** Exercise J test ****************************** \n");
-            service.Print_List_Of_Nc(service.ListOfNotaCred(2001));
+            EF.Print.Print_List_Of_Nc(service.ListOfNotaCred(2001));
             Console.WriteLine("Listar Notas de Cred de um ano test : OK");
         }
 
@@ -85,7 +91,7 @@ namespace TP2.TestSuit
             service.AtualizarEstadoFat("FT2021-11111", "Emitida");
             service.RefreshAll();
             service.SaveChanges();
-            service.Print_Fatura();
+            EF.Print.Print_Fatura(service.context);
             Console.WriteLine("AtualizarEstadoFat test : OK");
         }
 
@@ -108,7 +114,7 @@ namespace TP2.TestSuit
             service.AtualizarValorTotal(code); //exercicio I
             
             service.AtualizarEstadoFat(code, "Emitida");//exercicio K
-            service.Print_Fatura();
+            EF.Print.Print_Fatura(service.context);
             Console.WriteLine("******* OK *******");
         }
     }

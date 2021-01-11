@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace TP2.UserInterface
 {
@@ -33,16 +34,16 @@ namespace TP2.UserInterface
             }
             else if (option == "E")
             {
-                // using (TransactionScope ts = GetTs())
-                //{
+                using (TransactionScope ts = Transaction.GetTsReadUnCommitted())
+                {
                 using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                 {
                     Service service = new Service(context);
                     Console.WriteLine("Próximo cod da fatura: " + service.GetNextFatCod("FT"));
                 }
-                //ts.Complete();
+                ts.Complete();
                 return 0;
-                //}
+                }
             }
             else { Console.WriteLine("Invalid Option"); return -1; }
         }
