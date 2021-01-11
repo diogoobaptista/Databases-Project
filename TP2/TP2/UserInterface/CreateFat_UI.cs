@@ -22,6 +22,7 @@ namespace TP2.UserInterface
                 Console.WriteLine("Criar Fatura");
                 Console.Write("Insira o seu nif: ");
                 decimal nif = Decimal.Parse(Console.ReadLine());
+                if (nif.ToString().Length != 9) throw new FormatException();
                 Console.Write("Hey cara, qual o seu nome aí ? ");
                 var nome = Console.ReadLine();
                 Console.Write("Insira a sua morada: ");
@@ -55,7 +56,8 @@ namespace TP2.UserInterface
             }
             catch (FormatException e)
             {
-                Console.WriteLine("Valores Inseridos não são validos");
+                Console.WriteLine("Valores Inseridos não são validos " + e.Message);
+
                 return -1;
             }
             

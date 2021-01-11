@@ -43,9 +43,9 @@ namespace TP2.UserInterface
                 }
                 else { Console.WriteLine("Invalid Option"); return -1; }
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("Valores Inseridos não são validos");
+                Console.WriteLine("Valores Inseridos não são validos " + e.Message);
                 return -1;
             }
         }

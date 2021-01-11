@@ -24,6 +24,7 @@ namespace TP2.UserInterface
             }
             catch(Exception e)
             {
+                Console.WriteLine("Error running tests " + e.Message);
                 return -1;
             }
         }

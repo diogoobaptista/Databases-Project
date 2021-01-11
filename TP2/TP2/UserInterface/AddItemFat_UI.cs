@@ -29,7 +29,7 @@ namespace TP2.UserInterface
                 decimal num_uni = Decimal.Parse(Console.ReadLine());
                 Console.Write("Desconto? \n eg:0.2");
                 decimal desconto = Decimal.Parse(Console.ReadLine());
-                //TODO VALIDAR SE O DESCONTO INSERIDO É CONFORME O ESPERADO COM 
+                
                 Console.Write("Insira 'A' caso queira o formato ADO.Net ou 'E' caso queira o formato EF: ");
                 string option = Console.ReadLine();
                 if (option == "A")
@@ -58,9 +58,9 @@ namespace TP2.UserInterface
                 }
                 else { Console.WriteLine("Invalid Option"); return -1; }
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("Valores Inseridos não são validos");
+                Console.WriteLine("Valores Inseridos não são validos " + e.Message);
                 return -1;
             }
         }

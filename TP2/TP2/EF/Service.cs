@@ -54,7 +54,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while reseting database:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
         }
 
@@ -66,7 +66,7 @@ namespace EF
                 
             } catch (Exception e) {
                 Console.WriteLine("Error while creating new fatura:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
         }
 
@@ -79,7 +79,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while creating new Nota_Credito:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
 
         }
@@ -93,7 +93,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while creating new fatura with itens:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
 
         }
@@ -107,7 +107,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while update fatura with valorTotal:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
         }
 
@@ -120,7 +120,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while creating list of NC:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
                 return null;
             }
 
@@ -135,7 +135,7 @@ namespace EF
             catch (Exception e)
             {
                 Console.WriteLine("Error while update fatura with novoEstado:");
-                Console.WriteLine("-- {0}", e.GetBaseException().Message);
+                throw e.GetBaseException();
             }
         }
 

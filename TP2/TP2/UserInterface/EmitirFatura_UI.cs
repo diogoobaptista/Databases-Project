@@ -25,6 +25,7 @@ namespace TP2.UserInterface
                 var nome = Console.ReadLine();
                 Console.Write("Insira a sua morada: ");
                 var morada = Console.ReadLine();
+                Print.Produto(new ProdutoService().GetProdutos());
                 Console.Write("Qual o item a adicionar a fatura?: ");
                 string nome_item = Console.ReadLine();
                 Console.Write("Qual o sku do item a adicionar a fatura?: ");
@@ -73,9 +74,9 @@ namespace TP2.UserInterface
                 }
                 else { Console.WriteLine("Invalid Option"); return -1; }
             }
-            catch (FormatException e)
+            catch (Exception e)
             {
-                Console.WriteLine("Valores Inseridos não são validos");
+                Console.WriteLine("Valores Inseridos não são validos " + e.Message);
                 return -1;
             }
         }
