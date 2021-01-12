@@ -1,6 +1,7 @@
 USE SI2Trab1
 
 GO
+--DROP PROCEDURE AtualizarValorTotal
 
 CREATE OR ALTER PROCEDURE AtualizarValorTotal
     @codigo_fat nvarchar(12)

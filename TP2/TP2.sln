@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "..\ADO.NET\DAL\DAL.c
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Functions", "..\ADO.NET\Functions\Functions.csproj", "{F21186E9-71A5-4D9C-AADF-EC007A577AE9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Transaction", "Transaction\Transaction.csproj", "{EF116688-E04F-4114-9F91-194FDAB57A64}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{F21186E9-71A5-4D9C-AADF-EC007A577AE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F21186E9-71A5-4D9C-AADF-EC007A577AE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F21186E9-71A5-4D9C-AADF-EC007A577AE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF116688-E04F-4114-9F91-194FDAB57A64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF116688-E04F-4114-9F91-194FDAB57A64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF116688-E04F-4114-9F91-194FDAB57A64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF116688-E04F-4114-9F91-194FDAB57A64}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -60,20 +60,20 @@ PRINT 'Proxima Fatura'
 BEGIN TRANSACTION
 	EXEC @numero = getNextFatCod @tipo_codigo='FT'
 	PRINT @numero
-	if( @numero = 'FT2020-11111' ) 
-		PRINT 'OK:Next number is the->FT2020-11111'
+	if( @numero = 'FT2021-11111' ) 
+		PRINT 'OK:Next number is the->FT2021-11111'
 	else
-		PRINT 'NOK:Next number is not the->FT2020-11111'
+		PRINT 'NOK:Next number is not the->FT2021-11111'
 
 ROLLBACK
 PRINT '-----------------------------'
 BEGIN TRANSACTION
 	PRINT 'Próxima Nota de Credito'
 	EXEC @numero = getNextFatCod @tipo_codigo='NC'
-	if( @numero = 'NC2020-11111' ) 
-		PRINT 'OK:Next number is the->NC2020-11111'
+	if( @numero = 'NC2021-11111' ) 
+		PRINT 'OK:Next number is the->NC2021-11111'
 	else
-		PRINT 'NOK:Next number is not the->NC2020-11111'
+		PRINT 'NOK:Next number is not the->NC2021-11111'
 
 ROLLBACK
 PRINT '-----------------------------'
@@ -93,20 +93,20 @@ PRINT '-----------------------------'
 PRINT 'Criar Fatura'
 BEGIN TRANSACTION
 	EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2020-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
-		PRINT 'OK:Fatura FT2020-11111 was created'
+	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2021-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
+		PRINT 'OK:Fatura FT2021-11111 was created'
 	else
-		PRINT 'NOK:Fatura FT2020-11111 was not created'
+		PRINT 'NOK:Fatura FT2021-11111 was not created'
 ROLLBACK
 
 PRINT '-----------------------------'
 PRINT 'Criar Fatura para nif que nao existe em sistema'
 BEGIN TRANSACTION
 	EXEC p_criafatura @nif = 111222000, @nome= 'abx', @morada ='Rua '
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2020-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
-		PRINT 'OK:Fatura FT2020-11111 was created because and was added the nif'
+	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2021-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
+		PRINT 'OK:Fatura FT2021-11111 was created because and was added the nif'
 	else
-		PRINT 'NOK:Fatura FT2020-11111 was not created'
+		PRINT 'NOK:Fatura FT2021-11111 was not created'
 
 ROLLBACK
 
@@ -114,10 +114,10 @@ PRINT '-----------------------------'
 PRINT 'Criar Fatura e não dar o nif'
 BEGIN TRANSACTION
 	EXEC p_criafatura @nif = null, @nome= 'abx', @morada ='Rua '
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2020-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
-		PRINT 'NOK:Fatura FT2020-11111 was created '
+	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Fatura_Hist WHERE codigo_fat='FT2021-11111') AND EXISTS (SELECT * FROM Contribuinte WHERE nif=111222333)
+		PRINT 'NOK:Fatura FT2021-11111 was created '
 	else
-		PRINT 'OK:Fatura FT2020-11111 was not created'
+		PRINT 'OK:Fatura FT2021-11111 was not created'
 
 ROLLBACK
 
@@ -137,90 +137,102 @@ ROLLBACK
 PRINT '-----------------------------'
 PRINT 'Criar Nota Crédito para fatura inexistente'
 BEGIN TRANSACTION
-	EXEC AddNewNC  @codigo_fat = 'FT2001-12349';
-	if EXISTS (SELECT * FROM Nota_Cred WHERE codigo_fat='FT2001-12349' ) 
-		PRINT 'NOK:Nota Crédito NC2001-12349 was created'
-	else
+	BEGIN TRY
+		BEGIN
+			EXEC AddNewNC  @codigo_fat = 'FT2001-12349';
+			if EXISTS (SELECT * FROM Nota_Cred WHERE codigo_fat='FT2001-12349' ) 
+				PRINT 'NOK:Nota Crédito NC2001-12349 was created'
+			ROLLBACK
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Nota Crédito NC2001-12349 was not created'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Criar Nota Crédito para uma fatura não emitida'
 BEGIN TRANSACTION
-	EXEC AddNewNC  @codigo_fat = 'FT2001-12344';
-	if EXISTS (SELECT * FROM Nota_Cred WHERE codigo_fat='FT2001-12344' ) 
-		PRINT 'NOK:Nota Crédito NC2001-12344 was created'
-	else
+	BEGIN TRY
+		BEGIN
+			EXEC AddNewNC  @codigo_fat = 'FT2001-12344';
+			if EXISTS (SELECT * FROM Nota_Cred WHERE codigo_fat='FT2001-12344' ) 
+				PRINT 'NOK:Nota Crédito NC2001-12344 was created'
+			ROLLBACK
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Nota Crédito NC2001-12344 was not created'
-ROLLBACK
-
-
-
+	END CATCH
 ------------- TESTE EXERCICIO H -------------
 PRINT 'TESTE DO EXERCICIO H' ;
-
 PRINT 'Adicionar Item a fatura '
 BEGIN TRANSACTION
-	EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
-	EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2020-11111', @sku= '321456'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-11111' AND sku= '321456') 
-		AND EXISTS (SELECT * FROM Item_Hist WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-11111' AND sku= '321456')
-		PRINT 'OK:Item was added FT2020-11111'
-	else
-		PRINT 'NOK:Item not was added FT2020-11111'
-ROLLBACK
+	BEGIN TRY
+		BEGIN
+			EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
+			EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2021-11111', @sku= '321456'
+			if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2021-11111' AND sku= '321456') 
+				AND EXISTS (SELECT * FROM Item_Hist WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2021-11111' AND sku= '321456')
+				PRINT 'OK:Item was added FT2021-11111'
+			ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
+		PRINT 'NOK:Item not was added FT2021-11111'
+	END CATCH
 
 PRINT '-----------------------------'
 
 PRINT 'Adicionar Item a fatura  e de seguida depois atualizar esse mesmo produto em questao de aumentar o numero de unidades e atualizar desconto'
 BEGIN TRANSACTION
-	EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
-	EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2020-11111', @sku= '321456'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-11111' AND sku= '321456') 
-		PRINT 'OK:Item was added FT2020-11111'
-	else
-		PRINT 'NOK:Item not was added FT2020-11111'
-	EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.2, @num_uni = 6, @codigo_fat='FT2020-11111', @sku= '321456'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.2 AND num_uni = 12 AND codigo_fat='FT2020-11111' AND sku= '321456') 
-		PRINT 'OK:Item was updated FT2020-11111'
-	else
-		PRINT 'NOK:Item not was updated FT2020-11111'
-ROLLBACK
+	BEGIN TRY
+		BEGIN
+			EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
+			EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2021-11111', @sku= '321456'
+			if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2021-11111' AND sku= '321456') 
+				PRINT 'OK:Item was added FT2021-11111'
+			EXEC AddItemsFat @desc_item = 'banana',  @desconto=0.2, @num_uni = 6, @codigo_fat='FT2021-11111', @sku= '321456'
+			if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2021-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='banana' AND desconto=0.2 AND num_uni = 12 AND codigo_fat='FT2021-11111' AND sku= '321456') 
+				PRINT 'OK:Item was updated FT2021-11111'
+			ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
+		PRINT 'NOK:Item not was added FT2021-11111'
+	END CATCH
 
 PRINT '-----------------------------'
-
-PRINT 'Adicionar Item a fatura que não existe num produto'
-BEGIN TRANSACTION
-	EXEC p_criafatura @nif = 111222333, @nome= 'Inês', @morada ='Rua 121'
-	EXEC AddItemsFat @desc_item = 'ananas',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2020-11111', @sku= '122334'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-11111' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='ananas' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-11111' AND sku= '122334') 
-		PRINT 'NOK:Item was added FT2020-11111'
-	else
-		PRINT 'OK:Item not was added FT2020-11111'
-ROLLBACK
-
-PRINT '-----------------------------'
-
 PRINT 'Adicionar Item a fatura que nao está em atualização'
 BEGIN TRANSACTION
-	EXEC AddItemsFat @desc_item = 'ananas',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2020-12347', @sku= '122334'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-12347' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='ananas' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-12347' AND sku= '122334') 
-		PRINT 'NOK:Item was added FT2020-12348'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AddItemsFat @desc_item = 'ananas',  @desconto=0.5, @num_uni = 6, @codigo_fat='FT2020-12347', @sku= '122334'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2020-12347' ) AND EXISTS (SELECT * FROM Item WHERE desc_item='ananas' AND desconto=0.5 AND num_uni = 6 AND codigo_fat='FT2020-12347' AND sku= '122334') 
+			PRINT 'NOK:Item was added FT2020-12348'
+			ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Item not was added FT2020-12348'
-ROLLBACK
+	END CATCH
+
 PRINT '-----------------------------'
 ------------- TESTE EXERCICIO I -------------
 PRINT 'TESTE DO EXERCICIO I' ;
 
 PRINT 'Atualizar o Valor total da fatura '
 BEGIN TRANSACTION
-	EXEC AtualizarValorTotal @codigo_fat='FT2001-12344'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND val_total=14.60 ) 
-		PRINT 'OK:Was updated the total value in FT2001-12344'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarValorTotal @codigo_fat='FT2001-12344'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND val_total=14.60 ) 
+			PRINT 'OK:Was updated the total value in FT2001-12344'
+			ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Not Was updated the total value in FT2001-12344'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 ------------- TESTE EXERCICIO J -------------
@@ -254,121 +266,181 @@ PRINT 'TESTE DO EXERCICIO K' ;
 
 PRINT 'Atualizar estado de fatura de em atualização para anulada '--pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12344'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Anulada') 
-		PRINT 'OK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12344'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Anulada') 
+			PRINT 'OK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 PRINT '-----------------------------'
 
 PRINT 'Atualizar estado de fatura de em atualização para emitida '--pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12344'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Emitida') 
-		PRINT 'OK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12344'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Emitida') 
+			PRINT 'OK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 PRINT '-----------------------------'
 
 PRINT 'Atualizar estado de fatura de em atualização para proforma '--pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12344'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Proforma') 
-		PRINT 'OK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12344'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12344' AND estado='Proforma') 
+			PRINT 'OK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 PRINT '-----------------------------'
-
 PRINT 'Atualizar estado de fatura de em anulada para emitida '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12347'
-	if  EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Emitida') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12347'
+		if  EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Emitida') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
+
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em anulada para em atualização '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12347'
-	if  EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Em atualização') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12347'
+		if  EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Em atualização') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em anulada para proforma '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12347'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Proforma') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12347'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12347' AND estado='Proforma') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em emitida para anulada '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12346'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Anulada') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12346'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Anulada') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em emitida para em atualização '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12346'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Em atualização') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12346'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Em atualização') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em emitida para proforma '--n pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12346'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Proforma') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Proforma', @codigo_fat = 'FT2001-12346'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12346' AND estado='Proforma') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em proforma para em atualização ' --nao pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12345'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Em atualização') 
-		PRINT 'NOK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Em atualização', @codigo_fat = 'FT2001-12345'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Em atualização') 
+			PRINT 'NOK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'OK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em proforma para emitida '--pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12345'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Emitida') 
-		PRINT 'OK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Emitida', @codigo_fat = 'FT2001-12345'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Emitida') 
+			PRINT 'OK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 PRINT '-----------------------------'
 PRINT 'Atualizar estado de fatura de em proforma para anulada '--pode
 BEGIN TRANSACTION
-	EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12345'
-	if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Anulada') 
-		PRINT 'OK:Estado pode ser atualizado'
-	else
+	BEGIN TRY
+		BEGIN
+		EXEC AtualizarEstadoFat @novo_estado = 'Anulada', @codigo_fat = 'FT2001-12345'
+		if EXISTS (SELECT * FROM Fatura WHERE codigo_fat='FT2001-12345' AND estado='Anulada') 
+			PRINT 'OK:Estado pode ser atualizado'
+		ROLLBACK 
+		END 
+	END TRY
+	BEGIN CATCH
 		PRINT 'NOK:Estado não pode ser atualizado'
-ROLLBACK
+	END CATCH
 
 ------------- TESTE EXERCICIO L -------------
 

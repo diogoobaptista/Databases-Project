@@ -2,6 +2,9 @@ USE SI2Trab1
 
 GO
 
+--DROP PROCEDURE AddItemsFat
+
+
 CREATE OR ALTER PROCEDURE AddItemsFat
 		@desc_item varchar(100),
 		@desconto decimal(2,1),
@@ -15,9 +18,9 @@ SET TRANSACTION ISOLATION LEVEL SERIALIZABLE
 		IF EXISTS (SELECT estado FROM Fatura WHERE codigo_fat = @codigo_fat AND estado = 'Em atualização')
 		BEGIN
 			IF ( @desc_item is null OR @desconto is null OR @num_uni is null OR @codigo_fat is null OR @sku is null)
-				ELSE RAISERROR('Parametro a null', 15, 1);
+				RAISERROR('Parametro a null', 15, 1);
 			IF NOT EXISTS ( SELECT * FROM Produto WHERE desc_prod = @desc_item AND sku=@sku)
-				ELSE RAISERROR('Produto inexistente', 15, 1);
+				RAISERROR('Produto inexistente', 15, 1);
 			ELSE
 			BEGIN
 				DECLARE @num_item int

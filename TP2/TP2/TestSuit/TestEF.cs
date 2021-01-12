@@ -13,7 +13,7 @@ namespace TP2.TestSuit
         public static string RunSuit()
         {
             string result = null;
-            using (TransactionScope ts = Transaction.GetTsSerializable())
+            using (TransactionScope ts = Transaction.Ts.GetTsSerializable())
             {
                 using (var context = new SI2Trab1Entities())
                 {

@@ -1,9 +1,13 @@
-﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Transactions;
 
-namespace TP2
+namespace Transaction
 {
-    public class Transaction
+    public class Ts
     {
 
         public static TransactionScope GetTsReadCommitted()
@@ -23,7 +27,7 @@ namespace TP2
 
             return new TransactionScope(TransactionScopeOption.Required, option);
         }
-    
+
         public static TransactionScope GetTsReadUnCommitted()
         {
             var option = new TransactionOptions();
@@ -34,3 +38,4 @@ namespace TP2
         }
     }
 }
+

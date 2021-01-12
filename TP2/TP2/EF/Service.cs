@@ -121,7 +121,6 @@ namespace EF
             {
                 Console.WriteLine("Error while creating list of NC:");
                 throw e.GetBaseException();
-                return null;
             }
 
         }

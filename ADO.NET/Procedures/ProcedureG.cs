@@ -7,6 +7,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Procedures
 {
@@ -22,18 +23,22 @@ namespace Procedures
         {
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(cs))
+                using (TransactionScope ts = Transaction.Ts.GetTsReadCommitted())
                 {
-                    sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("AddNewNC", sqlConnection))
+                    using (SqlConnection sqlConnection = new SqlConnection(cs))
                     {
-                        sqlCommand.CommandType = CommandType.StoredProcedure;
+                        sqlConnection.Open();
+                        using (SqlCommand sqlCommand = new SqlCommand("AddNewNC", sqlConnection))
+                        {
+                            sqlCommand.CommandType = CommandType.StoredProcedure;
 
-                        SqlParameter p1 = new SqlParameter("@codigo_fat", codigo_fat);
-                        sqlCommand.Parameters.Add(p1);
+                            SqlParameter p1 = new SqlParameter("@codigo_fat", codigo_fat);
+                            sqlCommand.Parameters.Add(p1);
 
-                        sqlCommand.ExecuteNonQuery();
+                            sqlCommand.ExecuteNonQuery();
+                        }
                     }
+                    ts.Complete();
                 }
             }
             catch (Exception exception)

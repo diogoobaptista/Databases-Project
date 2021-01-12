@@ -1,6 +1,9 @@
 USE SI2Trab1
 
 GO
+
+--DROP PROCEDURE AtualizarEstadoFat
+
 CREATE OR ALTER PROCEDURE AtualizarEstadoFat
     @codigo_fat nvarchar(12),
 	@novo_estado varchar(15)

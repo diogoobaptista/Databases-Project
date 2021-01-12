@@ -126,7 +126,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestSuit\TestADO.cs" />
     <Compile Include="TestSuit\TestEF.cs" />
-    <Compile Include="Transaction.cs" />
     <Compile Include="UserInterface\AddItemFat_UI.cs" />
     <Compile Include="UserInterface\CreateFat_UI.cs" />
     <Compile Include="UserInterface\CreateNc_UI.cs" />
@@ -169,6 +168,10 @@
     <ProjectReference Include="..\..\ADO.NET\Services\Services.csproj">
       <Project>{B9EA5CF0-D125-4A87-AF89-B8EA795F42CE}</Project>
       <Name>Services</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Transaction\Transaction.csproj">
+      <Project>{ef116688-e04f-4114-9f91-194fdab57a64}</Project>
+      <Name>Transaction</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

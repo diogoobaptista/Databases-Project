@@ -9,6 +9,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace Procedures
 {
@@ -26,34 +27,40 @@ namespace Procedures
             var notasc = new List<Nota_Cred>();
             try
             {
-                using (SqlConnection sqlConnection = new SqlConnection(cs))
+                using (TransactionScope ts = Transaction.Ts.GetTsReadUnCommitted())
                 {
-                    sqlConnection.Open();
-                    using (SqlCommand sqlCommand = new SqlCommand("select * from ListOfNotaCred(" + ano + ")", sqlConnection))
+                    using (SqlConnection sqlConnection = new SqlConnection(cs))
                     {
-                        sqlCommand.CommandType = CommandType.Text;
-
-                        using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
+                        sqlConnection.Open();
+                        using (SqlCommand sqlCommand =
+                            new SqlCommand("select * from ListOfNotaCred(" + ano + ")", sqlConnection))
                         {
-                            while (sqlDataReader.Read())
+                            sqlCommand.CommandType = CommandType.Text;
+
+                            using (SqlDataReader sqlDataReader = sqlCommand.ExecuteReader())
                             {
-                                Nota_Cred nc = new Nota_Cred
+                                while (sqlDataReader.Read())
                                 {
-                                    codigo_nc = sqlDataReader.SafeGet<string>(0),
-                                    ano = sqlDataReader.SafeGet<decimal>(1),
-                                    nr_nc = sqlDataReader.SafeGet<decimal>(2),
-                                    dt_emissao = sqlDataReader.SafeGet<string>(3),
-                                    dt_criacao = sqlDataReader.SafeGet<string>(4),
-                                    val_nc = sqlDataReader.SafeGet<decimal>(5),
-                                    estado = sqlDataReader.SafeGet<string>(6),
-                                    codigo_fat = sqlDataReader.SafeGet<string>(7)
+                                    Nota_Cred nc = new Nota_Cred
+                                    {
+                                        codigo_nc = sqlDataReader.SafeGet<string>(0),
+                                        ano = sqlDataReader.SafeGet<decimal>(1),
+                                        nr_nc = sqlDataReader.SafeGet<decimal>(2),
+                                        dt_emissao = sqlDataReader.SafeGet<string>(3),
+                                        dt_criacao = sqlDataReader.SafeGet<string>(4),
+                                        val_nc = sqlDataReader.SafeGet<decimal>(5),
+                                        estado = sqlDataReader.SafeGet<string>(6),
+                                        codigo_fat = sqlDataReader.SafeGet<string>(7)
 
-                                };
+                                    };
 
-                                notasc.Add(nc);
+                                    notasc.Add(nc);
+                                }
                             }
                         }
                     }
+
+                    ts.Complete();
                 }
             }
             catch (Exception exception)

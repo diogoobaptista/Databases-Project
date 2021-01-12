@@ -42,7 +42,7 @@ namespace TP2.UserInterface
                 }
                 else if (option == "E")
                 {
-                    using (TransactionScope ts = Transaction.GetTsSerializable())
+                    using (TransactionScope ts = Transaction.Ts.GetTsSerializable())
                     {
                         using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                         {

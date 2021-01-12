@@ -32,7 +32,7 @@ namespace TP2.UserInterface
                 }
                 else if (option == "E")
                 {
-                    using (TransactionScope ts = Transaction.GetTsReadCommitted())
+                    using (TransactionScope ts = Transaction.Ts.GetTsReadCommitted())
                     {
                         using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                         {
