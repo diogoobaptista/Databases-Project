@@ -524,7 +524,7 @@ warning 6002: The table/view 'SI2Trab1.dbo.ResumoFat' does not have a primary ke
             <PropertyRef Name="nif" />
           </Key>
           <Property Name="nif" Type="Decimal" Precision="9" Scale="0" Nullable="false" />
-          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nome" Type="String" MaxLength="50" FixedLength="false" Unicode="false" ConcurrencyMode="Fixed" />
           <Property Name="morada" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Fatura" Relationship="Self.FK__Fatura__nif__21C1BDAC" FromRole="Contribuinte" ToRole="Fatura" />
           <NavigationProperty Name="Fatura_Hist" Relationship="Self.FK__Fatura_Hist__nif__34D49220" FromRole="Contribuinte" ToRole="Fatura_Hist" />

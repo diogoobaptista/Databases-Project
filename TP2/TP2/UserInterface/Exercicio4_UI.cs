@@ -14,57 +14,46 @@ namespace TP2.UserInterface
         {
             try
             {
+
+                Console.WriteLine("O Contribuinte a alterar o que tem o nif 111222333");
                 using (TransactionScope ts = Transaction.Ts.GetTsReadUnCommitted())
                 {
                     decimal niff;
                     using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                     {
-                        Console.WriteLine("Criar Contribuinte");
-                        Console.Write("Insira o seu nif: ");
-                        niff = Decimal.Parse(Console.ReadLine());
-                        if (niff.ToString().Length != 9) throw new FormatException();
+
                         Console.Write("Hey cara, qual o seu nome aí ? ");
                         var nomee = Console.ReadLine();
-                        Console.Write("Insira a sua morada: ");
-                        var moradaa = Console.ReadLine();
 
-                        TP2.EF.Contribuinte newContribuinte = new TP2.EF.Contribuinte()
-                        {
-                            nif = niff,
-                            nome = nomee,
-                            morada = moradaa
-                        };
-                        context.Contribuinte.Add(newContribuinte);
-                        context.SaveChanges();
-                    }
-                    using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
-                    {
-                        Console.Write("Insira o seu novo nif: ");
-                        decimal niff2 = Decimal.Parse(Console.ReadLine());
-                        if (niff2.ToString().Length != 9) throw new FormatException();
-
-                        TP2.EF.Contribuinte contribuinteUpdt = (
+                        TP2.EF.Contribuinte contribuinteUpdt1 = (
                             from c in context.Contribuinte
-                            where c.nif == niff
+                            where c.nif == 111222333
                             select c
                         ).SingleOrDefault();
-
-                        if (contribuinteUpdt != null)
+                        contribuinteUpdt1.nome = nomee;
+                        using (EF.SI2Trab1Entities context2 = new EF.SI2Trab1Entities())
                         {
-                            contribuinteUpdt.nif = niff2;
-                        }
+                            Console.Write("Insira o seu novo nome: ");
+                            var nome2 = Console.ReadLine();
 
+                            TP2.EF.Contribuinte contribuinteUpdt2 = (
+                                from c in context2.Contribuinte
+                                where c.nif == 111222333
+                                select c
+                            ).SingleOrDefault();
+                            contribuinteUpdt2.nome = nome2;
+                            context2.SaveChanges();
+                        }
                         context.SaveChanges();
                     }
-
                     ts.Complete();
                     return 0;
                 }
             }
             catch (Exception e)
             {
-
-                Console.WriteLine("Valores Inseridos não são validos " + e.Message);
+                
+                Console.WriteLine( e.Message);
                 return -1;
             }
         }
