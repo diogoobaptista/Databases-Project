@@ -58,6 +58,7 @@ namespace Procedures
                                 }
                             }
                         }
+                        sqlConnection.Close();
                     }
 
                     ts.Complete();

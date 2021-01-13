@@ -38,6 +38,7 @@ namespace Procedures
 
                             sqlCommand.ExecuteNonQuery();
                         }
+                        sqlConnection.Close();
                     }
                     ts.Complete();
                 }
