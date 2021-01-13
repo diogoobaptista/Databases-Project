@@ -16,11 +16,12 @@ namespace TP2.UserInterface
             {
                 using (TransactionScope ts = Transaction.Ts.GetTsReadUnCommitted())
                 {
+                    decimal niff;
                     using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                     {
                         Console.WriteLine("Criar Contribuinte");
                         Console.Write("Insira o seu nif: ");
-                        decimal niff = Decimal.Parse(Console.ReadLine());
+                        niff = Decimal.Parse(Console.ReadLine());
                         if (niff.ToString().Length != 9) throw new FormatException();
                         Console.Write("Hey cara, qual o seu nome aí ? ");
                         var nomee = Console.ReadLine();
@@ -33,8 +34,11 @@ namespace TP2.UserInterface
                             nome = nomee,
                             morada = moradaa
                         };
-
                         context.Contribuinte.Add(newContribuinte);
+                        context.SaveChanges();
+                    }
+                    using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
+                    {
                         Console.Write("Insira o seu novo nif: ");
                         decimal niff2 = Decimal.Parse(Console.ReadLine());
                         if (niff2.ToString().Length != 9) throw new FormatException();
