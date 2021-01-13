@@ -130,6 +130,7 @@
     <Compile Include="UserInterface\CreateFat_UI.cs" />
     <Compile Include="UserInterface\CreateNc_UI.cs" />
     <Compile Include="UserInterface\EmitirFatura_UI.cs" />
+    <Compile Include="UserInterface\Exercicio4_UI.cs" />
     <Compile Include="UserInterface\GetNextCodFat_UI.cs" />
     <Compile Include="UserInterface\GetNextCodNc_UI.cs" />
     <Compile Include="UserInterface\ListNcForYear_UI.cs" />

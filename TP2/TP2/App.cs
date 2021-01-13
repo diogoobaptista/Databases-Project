@@ -21,6 +21,7 @@ namespace TP2
             Obter_Cod_Fatura,
             Obter_Cod_NC,
             Emitir_Fatura,
+            Exercicio4,
             Testes,
             Exit
         };
@@ -51,6 +52,7 @@ namespace TP2
             funcs.Add(OPTIONS.Obter_Cod_Fatura, UserInterface.GetNextCodFat_UI.GetNextCodFat);
             funcs.Add(OPTIONS.Obter_Cod_NC, UserInterface.GetNextCodNc_UI.GetNextCodNC);
             funcs.Add(OPTIONS.Emitir_Fatura, UserInterface.EmitirFatura_UI.EmitirFatura);
+            funcs.Add(OPTIONS.Exercicio4, UserInterface.Exercicio4_UI.Exercicio4);
             funcs.Add(OPTIONS.Testes, UserInterface.Test_UI.Test);
         }
 
