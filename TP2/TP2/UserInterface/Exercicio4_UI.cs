@@ -18,7 +18,6 @@ namespace TP2.UserInterface
                 Console.WriteLine("O Contribuinte a alterar o que tem o nif 111222333");
                 using (TransactionScope ts = Transaction.Ts.GetTsReadUnCommitted())
                 {
-                    decimal niff;
                     using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                     {
 
