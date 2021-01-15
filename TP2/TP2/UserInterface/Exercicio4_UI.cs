@@ -21,7 +21,7 @@ namespace TP2.UserInterface
                     using (EF.SI2Trab1Entities context = new EF.SI2Trab1Entities())
                     {
 
-                        Console.Write("Hey cara, qual o seu nome aí ? ");
+                        Console.Write("Insira o seu nome: ");
                         var nomee = Console.ReadLine();
 
                         TP2.EF.Contribuinte contribuinteUpdt1 = (

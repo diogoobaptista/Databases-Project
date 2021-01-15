@@ -21,7 +21,7 @@ namespace TP2.UserInterface
                 Console.WriteLine("Emitir Fatura");
                 Console.Write("Insira o seu nif: ");
                 decimal nif = Decimal.Parse(Console.ReadLine());
-                Console.Write("Hey cara, qual o seu nome aí ? ");
+                Console.Write("Insira o seu nome: ");
                 var nome = Console.ReadLine();
                 Console.Write("Insira a sua morada: ");
                 var morada = Console.ReadLine();
