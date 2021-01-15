@@ -150,24 +150,24 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\ADO.NET\DAL\DAL.csproj">
-      <Project>{1557BA14-5B8F-4363-A7B1-1D6C18BDE70D}</Project>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{1557ba14-5b8f-4363-a7b1-1d6c18bde70d}</Project>
       <Name>DAL</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ADO.NET\Entidades\Entidades.csproj">
-      <Project>{197A3BFA-9E9F-45C8-A592-6A25C3900AAD}</Project>
+    <ProjectReference Include="..\Entidades\Entidades.csproj">
+      <Project>{197a3bfa-9e9f-45c8-a592-6a25c3900aad}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ADO.NET\Functions\Functions.csproj">
-      <Project>{F21186E9-71A5-4D9C-AADF-EC007A577AE9}</Project>
+    <ProjectReference Include="..\Functions\Functions.csproj">
+      <Project>{f21186e9-71a5-4d9c-aadf-ec007a577ae9}</Project>
       <Name>Functions</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ADO.NET\Procedures\Procedures.csproj">
-      <Project>{727C674D-9E16-439B-A9DC-150E06FFAE6D}</Project>
+    <ProjectReference Include="..\Procedures\Procedures.csproj">
+      <Project>{727c674d-9e16-439b-a9dc-150e06ffae6d}</Project>
       <Name>Procedures</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\ADO.NET\Services\Services.csproj">
-      <Project>{B9EA5CF0-D125-4A87-AF89-B8EA795F42CE}</Project>
+    <ProjectReference Include="..\Services\Services.csproj">
+      <Project>{b9ea5cf0-d125-4a87-af89-b8ea795f42ce}</Project>
       <Name>Services</Name>
     </ProjectReference>
     <ProjectReference Include="..\Transaction\Transaction.csproj">
